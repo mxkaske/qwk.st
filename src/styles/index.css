@@ -4,14 +4,3 @@
 /* Your own custom component styles */
 
 @import "tailwindcss/utilities";
-
-html,
-body {
-  background: theme("colors.white");
-  color: theme("colors.gray.900");
-}
-
-[data-theme="dark"] body {
-  background: theme("colors.gray.900");
-  color: theme("colors.white");
-}
