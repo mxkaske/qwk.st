@@ -29,11 +29,17 @@ export default NextAuth({
       sendVerificationRequest,
     }),
   ],
+  callbacks: {
+    session: async ({ session, user }) => {
+      session.user = user;
+      return Promise.resolve(session);
+    },
+  },
   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
     error: "/auth/error",
     verifyRequest: "/auth/verify-request",
-    // newUser: '/auth/new-user'
+    newUser: "/auth/my-user",
   },
 });
