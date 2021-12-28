@@ -1,12 +1,12 @@
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
@@ -16,12 +16,12 @@ model Account {
   type               String
   provider           String
   providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?  @db.Text
+  id_token           String? @db.Text
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
@@ -47,6 +47,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  username      String?   @unique
+  Link          Link[]
 }
 
 model VerificationToken {
@@ -55,4 +57,12 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Link {
+  id     String @id @default(cuid())
+  label  String
+  href   String
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
