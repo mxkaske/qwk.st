@@ -1,24 +1,32 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { useRouter } from "next/router";
 import React from "react";
 import prisma from "@/lib/prisma";
 import Link from "@/components/ui/Link";
 import Text from "@/components/ui/Text";
-import Layout from "@/components/common/Layout";
+import SelectTheme from "@/components/common/SelectTheme";
 
 const Slug = ({
   user,
   links,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <Layout>
-      <Text>@{user.username}</Text>
-      {links.map((link) => (
-        <Link key={link.id} href={link.href} className="block">
-          {link.label}
-        </Link>
-      ))}
-    </Layout>
+    <div className="container flex flex-col min-h-screen p-4 mx-auto">
+      <header className="self-end">
+        <SelectTheme />
+      </header>
+      <main className="flex flex-col items-center justify-center flex-1">
+        <Text>@{user.username}</Text>
+        <ul>
+          {links.map((link) => (
+            <li key={link.id}>
+              <Link href={link.href} className="block">
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </main>
+    </div>
   );
 };
 

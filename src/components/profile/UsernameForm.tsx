@@ -6,7 +6,7 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 
 // avoid username to be:
-const blacklist = ["api", "auth", "404"];
+const blacklist = ["api", "auth", "404", "profile"];
 
 const UsernameForm = () => {
   const [disabled, setDisabled] = useState(true);

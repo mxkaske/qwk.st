@@ -40,6 +40,6 @@ export default NextAuth({
     signOut: "/auth/signout",
     error: "/auth/error",
     verifyRequest: "/auth/verify-request",
-    newUser: "/auth/my-user",
+    newUser: "/profile",
   },
 });

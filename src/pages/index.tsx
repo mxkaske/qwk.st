@@ -4,16 +4,9 @@ import SelectTheme from "@/components/common/SelectTheme";
 import Layout from "@/components/common/Layout";
 
 export default function Home() {
-  const { data: session, status } = useSession();
-  const isLoading = status === "loading";
-
   return (
     <Layout>
-      {isLoading ? null : session?.user ? (
-        <Link href="/auth/signout">signout</Link>
-      ) : (
-        <Link href="/auth/signin">signin</Link>
-      )}
+      <Link href="/mxkaske">Example @mxkaske</Link>
     </Layout>
   );
 }
