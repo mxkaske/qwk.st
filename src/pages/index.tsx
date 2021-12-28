@@ -1,11 +1,20 @@
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+
 export default function Home() {
+  const { data: session, status } = useSession();
+
+  if (status == "loading") return "loading...";
+
   return (
-    <div className="container flex items-center p-4 mx-auto min-h-screen justify-center">
+    <div className="container flex items-center justify-center min-h-screen p-4 mx-auto">
       <main>
-        <h1 className="font-mono text-xl code">
-          Welcome to <span className="text-purple-700">Nextjs</span>, <span className="text-indigo-700">TailwindCSS</span> and <span className="text-gray-700">TypeScript</span>
-        </h1>
+        {session?.user ? (
+          <Link href="/auth/signout">signout</Link>
+        ) : (
+          <Link href="/auth/signin">signin</Link>
+        )}
       </main>
     </div>
-  )
+  );
 }
