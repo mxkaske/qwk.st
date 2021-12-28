@@ -1,12 +1,15 @@
 import React from "react";
 import { signIn } from "next-auth/react";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Layout from "@/components/common/Layout";
 
 const SignIn = () => {
   return (
-    <div>
-      <button onClick={() => signIn("github", { callbackUrl: "/" })}>
+    <Layout>
+      <Button onClick={() => signIn("github", { callbackUrl: "/" })}>
         Sign in with GitHub
-      </button>
+      </Button>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -16,15 +19,15 @@ const SignIn = () => {
           signIn("email", { email: target.email.value, callbackUrl: "/" });
         }}
       >
-        <input
+        <Input
           type="email"
           name="email"
           placeholder="your@company.com"
           required
         />
-        <button type="submit">Sign in with Email</button>
+        <Button type="submit">Sign in with Email</Button>
       </form>
-    </div>
+    </Layout>
   );
 };
 

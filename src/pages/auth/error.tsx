@@ -1,10 +1,12 @@
+import Layout from "@/components/common/Layout";
+import Text from "@/components/ui/Text";
 import React from "react";
 
 const Error = () => {
   return (
-    <div>
-      <p>Something went wrong.</p>
-    </div>
+    <Layout>
+      <Text>Something went wrong.</Text>
+    </Layout>
   );
 };
 
