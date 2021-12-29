@@ -9,6 +9,7 @@ import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Link from "@/components/ui/Link";
 import UploadForm from "@/components/profile/UploadForm";
+import LinkList from "@/components/profile/LinkList";
 
 // Redirect if first logged in - or if no username
 
@@ -31,7 +32,7 @@ const MyUser = ({
               How does it look like?
             </Link>
           </div>
-          <LinkTable fallbackData={links} />
+          <LinkList fallbackData={links} />
         </div>
       </Protected>
     </Layout>
