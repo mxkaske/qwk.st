@@ -45,6 +45,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  theme         String    @default("default")
   accounts      Account[]
   sessions      Session[]
   username      String?   @unique
@@ -60,9 +61,10 @@ model VerificationToken {
 }
 
 model Link {
-  id     String @id @default(cuid())
-  label  String
-  href   String
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  label     String
+  href      String
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

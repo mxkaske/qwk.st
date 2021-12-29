@@ -1,16 +1,14 @@
 import React from "react";
 import Protected from "@/components/common/Protected";
 import UsernameForm from "@/components/profile/UsernameForm";
-import Text from "@/components/ui/Text";
 import Layout from "@/components/common/Layout";
-import LinkTable from "@/components/profile/LinkTable";
 import prisma from "@/lib/prisma";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Link from "@/components/ui/Link";
 import UploadForm from "@/components/profile/UploadForm";
 import LinkList from "@/components/profile/LinkList";
-
+import ThemeForm from "@/components/profile/ThemeForm";
 // Redirect if first logged in - or if no username
 
 const MyUser = ({
@@ -20,9 +18,10 @@ const MyUser = ({
   return (
     <Layout>
       <Protected>
-        <div className="py-6 space-y-6">
+        <div className="py-6 space-y-12">
           <UsernameForm />
           <UploadForm />
+          <ThemeForm />
           <div>
             <Link
               href={`${
