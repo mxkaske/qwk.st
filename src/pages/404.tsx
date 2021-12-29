@@ -8,7 +8,7 @@ const NotFound = () => {
     <Layout>
       <Text>Not Found</Text>
       <Text>Want this to be your username?</Text>
-      <Link href="/auth/signin">Register now!</Link>
+      <Link href="/auth/signin">Sign in now!</Link>
     </Layout>
   );
 };
