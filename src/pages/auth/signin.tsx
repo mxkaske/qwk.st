@@ -4,11 +4,13 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Layout from "@/components/common/Layout";
 import Label from "@/components/ui/Label";
+import Heading from "@/components/ui/Heading";
 
 const SignIn = () => {
   return (
     <Layout className="flex items-center justify-center">
       <div className="w-full max-w-sm mx-auto space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
+        <Heading className="text-center">Sign in</Heading>
         <Button
           onClick={() => signIn("github", { callbackUrl: "/profile" })}
           className="w-full"
