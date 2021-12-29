@@ -8,6 +8,7 @@ import prisma from "@/lib/prisma";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import Link from "@/components/ui/Link";
+import UploadForm from "@/components/profile/UploadForm";
 
 // Redirect if first logged in - or if no username
 
@@ -20,6 +21,7 @@ const MyUser = ({
       <Protected>
         <div className="py-6 space-y-6">
           <UsernameForm />
+          <UploadForm />
           <div>
             <Link
               href={`${
