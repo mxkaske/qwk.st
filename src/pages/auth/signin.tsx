@@ -10,7 +10,7 @@ const SignIn = () => {
     <Layout className="flex items-center justify-center">
       <div className="w-full max-w-sm mx-auto space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
         <Button
-          onClick={() => signIn("github", { callbackUrl: "/" })}
+          onClick={() => signIn("github", { callbackUrl: "/profile" })}
           className="w-full"
         >
           Sign in with GitHub
@@ -21,7 +21,10 @@ const SignIn = () => {
             const target = e.target as typeof e.target & {
               email: { value: string };
             };
-            signIn("email", { email: target.email.value, callbackUrl: "/" });
+            signIn("email", {
+              email: target.email.value,
+              callbackUrl: "/profile",
+            });
           }}
           className="pt-8 space-y-2"
         >
