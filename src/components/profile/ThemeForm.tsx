@@ -30,7 +30,9 @@ const ThemeForm = () => {
         }}
       >
         {themes.map((theme) => (
-          <option key={theme} value={theme} label={theme} />
+          <option key={theme} value={theme} label={theme}>
+            {theme}
+          </option>
         ))}
       </Select>
     </form>

@@ -14,7 +14,9 @@ const SelectTheme = () => {
   return (
     <Select defaultValue={theme} onChange={(e) => setTheme(e.target.value)}>
       {allThemes.map((item) => (
-        <option key={item} label={item} value={item} />
+        <option key={item} label={item} value={item}>
+          {item}
+        </option>
       ))}
     </Select>
   );
