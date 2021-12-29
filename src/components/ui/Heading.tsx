@@ -18,7 +18,7 @@ const Heading: FC<Props> = ({
     <Component
       className={cn(
         {
-          "mb-4 text-3xl font-bold": element === "h1",
+          "mb-4 text-3xl md:text-5xl font-bold": element === "h1",
           "mb-3 text-2xl font-semibold": element === "h2",
           "mb-2 text-xl font-semibold": element === "h3",
           "mb-1 text-lg font-medium": element === "h4",

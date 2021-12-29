@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { FC, useEffect } from "react";
+import Loading from "../icon/Loading";
 
 const Protected: FC = ({ children }) => {
   const router = useRouter();
@@ -12,12 +13,12 @@ const Protected: FC = ({ children }) => {
     }
   }, [status, router]);
 
-  if (status === "loading") {
-    return <p>loading...</p>;
-  }
-
-  if (status === "unauthenticated") {
-    return <p>Declined</p>;
+  if (status === "loading" || status === "unauthenticated") {
+    return (
+      <div className="flex items-center justify-center py-16">
+        <Loading className="w-5 h-5 animate-spin" />
+      </div>
+    );
   }
 
   return <>{children}</>;

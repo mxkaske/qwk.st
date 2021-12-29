@@ -3,30 +3,44 @@ import { signIn } from "next-auth/react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Layout from "@/components/common/Layout";
+import Label from "@/components/ui/Label";
 
 const SignIn = () => {
   return (
-    <Layout>
-      <Button onClick={() => signIn("github", { callbackUrl: "/" })}>
-        Sign in with GitHub
-      </Button>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const target = e.target as typeof e.target & {
-            email: { value: string };
-          };
-          signIn("email", { email: target.email.value, callbackUrl: "/" });
-        }}
-      >
-        <Input
-          type="email"
-          name="email"
-          placeholder="your@company.com"
-          required
-        />
-        <Button type="submit">Sign in with Email</Button>
-      </form>
+    <Layout className="flex items-center justify-center">
+      <div className="w-full max-w-sm mx-auto space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
+        <Button
+          onClick={() => signIn("github", { callbackUrl: "/" })}
+          className="w-full"
+        >
+          Sign in with GitHub
+        </Button>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const target = e.target as typeof e.target & {
+              email: { value: string };
+            };
+            signIn("email", { email: target.email.value, callbackUrl: "/" });
+          }}
+          className="pt-8 space-y-2"
+        >
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="your@company.com"
+              className="w-full"
+              required
+            />
+          </div>
+          <Button type="submit" className="w-full">
+            Send Magic Link
+          </Button>
+        </form>
+      </div>
     </Layout>
   );
 };

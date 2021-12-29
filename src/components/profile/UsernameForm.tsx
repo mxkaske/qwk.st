@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import Label from "../ui/Label";
 
 // avoid username to be:
 const blacklist = ["api", "auth", "404", "profile"];
@@ -30,25 +31,34 @@ const UsernameForm = () => {
       onSubmit={async (e) => {
         e.preventDefault();
         const target = e.target as typeof e.target & {
-          username: { value: string };
+          slug: { value: string };
         };
         await update(`/api/users/${session.user.id}`, {
-          username: target.username.value,
+          username: target.slug.value,
         });
       }}
+      className="grid gap-4 md:grid-cols-3"
     >
-      <Input
-        name="username"
-        placeholder="username"
-        value={value}
-        onChange={async (e) => {
-          setDisabled(true);
-          setValue(e.target.value);
-        }}
-      />
-      <Button type="submit" disabled={disabled}>
-        Submit
-      </Button>
+      <div className="">
+        <Label htmlFor="slug">Username</Label>
+        <Input
+          id="slug"
+          name="slug"
+          placeholder="username"
+          value={value}
+          onChange={async (e) => {
+            setDisabled(true);
+            setValue(e.target.value);
+          }}
+          className="w-full"
+          prefix="@"
+        />
+      </div>
+      <div className="self-end">
+        <Button type="submit" disabled={disabled} className="w-full md:w-auto">
+          Submit
+        </Button>
+      </div>
     </form>
   );
 };
