@@ -8,7 +8,7 @@ const Error = () => {
   return (
     <Layout className="flex flex-col items-center justify-center">
       <Heading>Something went wrong.</Heading>
-      <Text className="text-gray-600 dark:text-gray-400">
+      <Text className="text-center text-gray-600 dark:text-gray-400">
         Make sure to use the same Provider as your first sign in.
       </Text>
       <Link href="/auth/signin">Retry</Link>
