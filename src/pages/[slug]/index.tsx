@@ -45,7 +45,7 @@ const Slug = ({
                 target="_blank"
                 rel="noreferrer"
                 className={cn(
-                  "block w-full px-3 py-2 text-center border dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600",
+                  "block w-full px-3 py-2 text-center border dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 focus:ring-2 focus:ring-indigo-500",
                   {
                     rounded: user.theme === "default",
                     "rounded-full": user.theme === "rounded",

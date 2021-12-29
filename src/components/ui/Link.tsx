@@ -19,7 +19,7 @@ const Link: FC<Props> = ({ href, className, children, ...props }) => {
       <a
         href={href}
         className={cn(
-          "hover:underline focus:ring-2 focus:ring-indigo-500 rounded",
+          "hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded",
           externalLink && "inline-flex items-center",
           className
         )}
