@@ -15,39 +15,13 @@ const LinkList = ({ fallbackData }: Props) => {
     fallbackData,
   });
 
-  const onCreate = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const target = e.target as typeof e.target & {
-      href: { value: string };
-      label: { value: string };
-    };
-    await create(`/api/links`, {
-      label: target.label.value,
-      href: target.href.value,
-    });
-    await mutate();
-  };
-
-  const onUpdate = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const target = e.target as typeof e.target & {
-      href: { value: string };
-      label: { value: string };
-    };
-    await create(`/api/links/$`, {
-      label: target.label.value,
-      href: target.href.value,
-    });
-    await mutate();
-  };
-
   return (
     <ul className="space-y-3">
       <div className="grid gap-4 font-medium text-gray-600 md:grid-cols-3 dark:text-gray-400">
         <Text>Label</Text>
         <Text>URL</Text>
       </div>
-      {links.map((link) => (
+      {links?.map((link) => (
         <Row
           key={link.id}
           link={link}
