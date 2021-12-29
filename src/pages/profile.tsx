@@ -11,6 +11,11 @@ import LinkList from "@/components/profile/LinkList";
 import ThemeForm from "@/components/profile/ThemeForm";
 // Redirect if first logged in - or if no username
 
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://main-ly.vercel.app"
+    : "http://localhost:3000";
+
 const MyUser = ({
   links,
   username,
@@ -23,13 +28,7 @@ const MyUser = ({
           <UploadForm />
           <div className="space-y-3">
             <ThemeForm />
-            <Link
-              href={`${
-                process.env.VERCEL_URL || `http://localhost:3000`
-              }/${username}`}
-            >
-              How does it look like?
-            </Link>
+            <Link href={`${URL}/${username}`}>How does it look like?</Link>
           </div>
           <LinkList fallbackData={links} />
         </div>

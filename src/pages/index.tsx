@@ -2,6 +2,11 @@ import Link from "@/components/ui/Link";
 import Layout from "@/components/common/Layout";
 import Heading from "@/components/ui/Heading";
 
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://main-ly.vercel.app"
+    : "http://localhost:3000";
+
 export default function Home() {
   return (
     <Layout className="flex flex-col items-center justify-center">
@@ -15,7 +20,7 @@ export default function Home() {
             href="https://github.com/maximiliankaske/main.ly"
             target="_blank"
             rel="noreferrer"
-            className="underline decoration-4 md:decoration-[6px]"
+            className="underline decoration-4 md:decoration-[6px] focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded"
           >
             Open Source
           </a>{" "}
@@ -25,13 +30,7 @@ export default function Home() {
           </span>
         </Heading>
         <Heading as="h3" className="text-center">
-          <Link
-            href={`${
-              process.env.VERCEL_URL || "http://localhost:3000"
-            }/mxkaske`}
-          >
-            Example @mxkaske
-          </Link>
+          <Link href={`${URL}/mxkaske`}>Example @mxkaske</Link>
         </Heading>
       </div>
     </Layout>
