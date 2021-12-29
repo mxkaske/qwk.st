@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import Text from "@/components/ui/Text";
 import Layout from "@/components/common/Layout";
+import Heading from "@/components/ui/Heading";
 
 const SignOut = () => {
   const router = useRouter();
@@ -12,8 +12,8 @@ const SignOut = () => {
     router.replace("/");
   }, [router]);
   return (
-    <Layout>
-      <Text>signing out...</Text>
+    <Layout className="flex flex-col items-center justify-center">
+      <Heading>Signing out...</Heading>
     </Layout>
   );
 };
