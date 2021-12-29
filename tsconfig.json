@@ -19,7 +19,8 @@
       "@/components/*": ["src/components/*"],
       "@/lib/*": ["src/lib/*"],
       "@/types/*": ["src/types/*"],
-      "@/utils/*": ["src/utils/*"]
+      "@/utils/*": ["src/utils/*"],
+      "@/config/*": ["src/config/*"]
     }
   },
   "exclude": ["node_modules"],

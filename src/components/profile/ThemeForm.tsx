@@ -5,15 +5,11 @@ import useSWR from "swr";
 import Label from "../ui/Label";
 import Select from "../ui/Select";
 import { User } from "@prisma/client";
-
-const themes = ["default", "edgy"];
+import themes from "@/config/themes";
 
 const ThemeForm = () => {
   const { data: session } = useSession();
-  const { data: user, mutate } = useSWR<User>(
-    `/api/users/${session.user.id}`,
-    get
-  );
+  const { mutate } = useSWR<User>(`/api/users/${session.user.id}`, get);
 
   return (
     <form>

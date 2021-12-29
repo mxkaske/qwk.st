@@ -5,6 +5,7 @@ import Link from "@/components/ui/Link";
 import Text from "@/components/ui/Text";
 import SelectTheme from "@/components/common/SelectTheme";
 import Image from "next/image";
+import cn from "classnames";
 
 const Slug = ({
   user,
@@ -38,7 +39,13 @@ const Slug = ({
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="block w-full px-3 py-2 text-center border rounded dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                className={cn(
+                  "block w-full px-3 py-2 text-center border dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600",
+                  {
+                    rounded: user.theme === "default",
+                    "rounded-full": user.theme === "rounded",
+                  }
+                )}
               >
                 {link.label}
               </a>
@@ -66,6 +73,7 @@ export const getServerSideProps = async (
       id: true,
       username: true,
       image: true,
+      theme: true,
     },
   });
 

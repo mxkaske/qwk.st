@@ -21,8 +21,8 @@ const MyUser = ({
         <div className="py-6 space-y-12">
           <UsernameForm />
           <UploadForm />
-          <ThemeForm />
-          <div>
+          <div className="space-y-3">
+            <ThemeForm />
             <Link
               href={`${
                 process.env.VERCEL_URL || `http://localhost:3000`
