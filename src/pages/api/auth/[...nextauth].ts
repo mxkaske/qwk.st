@@ -29,6 +29,7 @@ export default NextAuth({
       sendVerificationRequest,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     session: async ({ session, user }) => {
       session.user = user;
