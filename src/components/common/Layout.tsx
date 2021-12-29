@@ -31,6 +31,10 @@ const Layout: FC<Props> = ({ children, className }) => {
         </div>
       </header>
       <main className={cn("flex-1", className)}>{children}</main>
+      <footer className="space-x-4 text-right">
+        <Link href="https://github.com/maximiliankaske/main.ly">GitHub</Link>
+        <Link href="https://twitter.com/mxkaske">Twitter</Link>
+      </footer>
     </div>
   );
 };

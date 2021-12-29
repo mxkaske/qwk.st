@@ -10,7 +10,16 @@ export default function Home() {
           <span className="underline decoration-indigo-500 decoration-4 md:decoration-[6px]">
             Main.ly
           </span>
-          , an Open Source Alternative to{" "}
+          , the{" "}
+          <a
+            href="https://github.com/maximiliankaske/main.ly"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-4 md:decoration-[6px]"
+          >
+            Open Source
+          </a>{" "}
+          Alternative to{" "}
           <span className="line-through decoration-green-500 decoration-4 md:decoration-[6px]">
             Linktr.ee
           </span>

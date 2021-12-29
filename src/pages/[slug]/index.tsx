@@ -6,6 +6,7 @@ import Text from "@/components/ui/Text";
 import SelectTheme from "@/components/common/SelectTheme";
 import Image from "next/image";
 import cn from "classnames";
+import { NextSeo } from "next-seo";
 
 const Slug = ({
   user,
@@ -13,6 +14,10 @@ const Slug = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <div className="container flex flex-col min-h-screen p-4 mx-auto">
+      <NextSeo
+        title={`@${user.username} | Main.ly`}
+        description={"Main.ly. Make your link do more."}
+      />
       <header className="self-end">
         <SelectTheme />
       </header>
