@@ -13,6 +13,9 @@ const SignOut = () => {
       signOut();
       router.replace("/");
     }
+    if (status === "unauthenticated") {
+      router.replace("/");
+    }
   }, [status, router]);
 
   return (
