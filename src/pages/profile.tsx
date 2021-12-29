@@ -45,6 +45,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     },
   });
 
+  console.log({ links });
+
   return {
     props: {
       links,
