@@ -7,7 +7,7 @@ const Select: FC<SelectProps> = ({ children, className, ...props }) => {
   return (
     <select
       className={cn(
-        "bg-transparent border-gray-200 hover:border-gray-300 dark:hover:border-gray-600 dark:border-gray-700 rounded",
+        "bg-transparent border-gray-200 hover:border-gray-300 dark:hover:border-gray-600 dark:border-gray-700 rounded focus:ring-2 focus:ring-indigo-500",
         className
       )}
       {...props}

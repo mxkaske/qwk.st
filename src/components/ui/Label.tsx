@@ -6,7 +6,10 @@ interface Props extends LabelHTMLAttributes<HTMLLabelElement> {}
 const Label: FC<Props> = ({ children, className, ...props }) => {
   return (
     <label
-      className={cn("font-medium text-gray-600 dark:text-gray-400", className)}
+      className={cn(
+        "font-medium text-gray-600 dark:text-gray-400 mb-1 block",
+        className
+      )}
       {...props}
     >
       {children}
