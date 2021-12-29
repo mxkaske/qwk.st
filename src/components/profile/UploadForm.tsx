@@ -1,3 +1,4 @@
+import toasts from "@/lib/toasts";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { ChangeEvent, useRef, useState } from "react";
@@ -26,10 +27,12 @@ const UploadForm = () => {
         if (selectedFile) {
           const data = new FormData();
           data.append("file", selectedFile);
-          await fetch(`api/image-upload`, {
-            method: "POST",
-            body: data,
-          });
+          toasts.promise(
+            fetch(`api/image-upload`, {
+              method: "POST",
+              body: data,
+            })
+          );
           ref.current?.reset();
         }
       }}

@@ -5,6 +5,7 @@ import Input from "@/components/ui/Input";
 import Layout from "@/components/common/Layout";
 import Label from "@/components/ui/Label";
 import Heading from "@/components/ui/Heading";
+import toasts from "@/lib/toasts";
 
 const SignIn = () => {
   return (
@@ -12,7 +13,9 @@ const SignIn = () => {
       <div className="w-full max-w-sm mx-auto space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
         <Heading className="text-center">Sign in</Heading>
         <Button
-          onClick={() => signIn("github", { callbackUrl: "/profile" })}
+          onClick={() => {
+            toasts.promise(signIn("github", { callbackUrl: "/profile" }));
+          }}
           className="w-full"
         >
           Sign in with GitHub
@@ -23,10 +26,12 @@ const SignIn = () => {
             const target = e.target as typeof e.target & {
               email: { value: string };
             };
-            signIn("email", {
-              email: target.email.value,
-              callbackUrl: "/profile",
-            });
+            toasts.promise(
+              signIn("email", {
+                email: target.email.value,
+                callbackUrl: "/profile",
+              })
+            );
           }}
           className="pt-8 space-y-2"
         >

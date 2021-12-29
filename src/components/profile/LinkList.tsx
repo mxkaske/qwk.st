@@ -1,3 +1,4 @@
+import toasts from "@/lib/toasts";
 import { create, get, update, _delete } from "@/utils/fetch";
 import { Link as LinkType } from "@prisma/client";
 import React, { FormEvent, useRef } from "react";
@@ -31,17 +32,20 @@ const LinkList = ({ fallbackData }: Props) => {
               href: { value: string };
               label: { value: string };
             };
-            await update(`/api/links/${link.id}`, {
-              label: target.label.value,
-              href: target.href.value,
-            });
-            await mutate();
+            toasts.promise(
+              Promise.all([
+                update(`/api/links/${link.id}`, {
+                  label: target.label.value,
+                  href: target.href.value,
+                }),
+                mutate(),
+              ])
+            );
           }}
           onDelete={async () => {
             const res = confirm("Do you want to delete this?");
             if (res) {
-              await _delete(`/api/links/${link.id}`);
-              mutate();
+              Promise.all([_delete(`/api/links/${link.id}`), mutate()]);
             }
           }}
         />
@@ -53,11 +57,15 @@ const LinkList = ({ fallbackData }: Props) => {
             href: { value: string };
             label: { value: string };
           };
-          await create(`/api/links`, {
-            label: target.label.value,
-            href: target.href.value,
-          });
-          await mutate();
+          toasts.promise(
+            Promise.all([
+              create(`/api/links`, {
+                label: target.label.value,
+                href: target.href.value,
+              }),
+              mutate(),
+            ])
+          );
         }}
       />
     </ul>

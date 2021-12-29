@@ -6,6 +6,7 @@ import Label from "../ui/Label";
 import Select from "../ui/Select";
 import { User } from "@prisma/client";
 import themes from "@/config/themes";
+import toasts from "@/lib/toasts";
 
 const ThemeForm = () => {
   const { data: session } = useSession();
@@ -20,9 +21,11 @@ const ThemeForm = () => {
         defaultValue={session?.user.theme || "default"}
         onChange={async (e) => {
           e.preventDefault();
-          await update(`/api/users/${session?.user.id}`, {
-            theme: e.currentTarget.value,
-          });
+          toasts.promise(
+            update(`/api/users/${session?.user.id}`, {
+              theme: e.currentTarget.value,
+            })
+          );
           mutate();
         }}
       >
