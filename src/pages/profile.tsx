@@ -5,16 +5,10 @@ import Layout from "@/components/common/Layout";
 import prisma from "@/lib/prisma";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import Link from "@/components/ui/Link";
 import UploadForm from "@/components/profile/UploadForm";
 import LinkList from "@/components/profile/LinkList";
 import ThemeForm from "@/components/profile/ThemeForm";
-// Redirect if first logged in - or if no username
-
-const URL =
-  process.env.NODE_ENV === "production"
-    ? "https://main-ly.vercel.app"
-    : "http://localhost:3000";
+import Heading from "@/components/ui/Heading";
 
 const MyUser = ({
   links,
@@ -24,13 +18,23 @@ const MyUser = ({
     <Layout>
       <Protected>
         <div className="py-6 space-y-12">
-          <UsernameForm />
-          <UploadForm />
-          <div className="space-y-3">
-            <ThemeForm />
-            <Link href={`${URL}/${username}`}>How does it look like?</Link>
+          <div>
+            <Heading>User</Heading>
+            <div className="grid gap-4 md:gap-9 md:grid-cols-2">
+              <UsernameForm />
+              <UploadForm />
+            </div>
           </div>
-          <LinkList fallbackData={links} />
+          <div>
+            <Heading>Theme</Heading>
+            <div className="grid gap-4 md:gap-9 md:grid-cols-2">
+              <ThemeForm />
+            </div>
+          </div>
+          <div>
+            <Heading>Links</Heading>
+            <LinkList fallbackData={links} />
+          </div>
         </div>
       </Protected>
     </Layout>

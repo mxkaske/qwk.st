@@ -7,13 +7,20 @@ import Select from "../ui/Select";
 import { User } from "@prisma/client";
 import themes from "@/config/themes";
 import toasts from "@/lib/toasts";
+import Link from "../ui/Link";
+import Text from "../ui/Text";
+
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://main-ly.vercel.app"
+    : "http://localhost:3000";
 
 const ThemeForm = () => {
   const { data: session } = useSession();
   const { mutate } = useSWR<User>(`/api/users/${session.user.id}`, get);
 
   return (
-    <form>
+    <div className="p-3 -mx-3 border rounded dark:border-gray-700">
       <Label htmlFor="theme">Theme</Label>
       <Select
         id="theme"
@@ -35,7 +42,19 @@ const ThemeForm = () => {
           </option>
         ))}
       </Select>
-    </form>
+      {session?.user.theme && (
+        <Text className="mt-3 text-gray-600 dark:text-gray-400">
+          Get an idea of how others see{" "}
+          <Link
+            href={`${URL}/${session?.user?.username}`}
+            className="text-gray-900 dark:text-white"
+          >
+            my page
+          </Link>
+          .
+        </Text>
+      )}
+    </div>
   );
 };
 

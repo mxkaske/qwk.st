@@ -5,6 +5,7 @@ import React, { FormEvent, useRef } from "react";
 import useSWR from "swr";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import Label from "../ui/Label";
 import Text from "../ui/Text";
 
 interface Props {
@@ -17,11 +18,7 @@ const LinkList = ({ fallbackData }: Props) => {
   });
 
   return (
-    <ul className="space-y-3">
-      <div className="grid gap-4 font-medium text-gray-600 md:grid-cols-3 dark:text-gray-400">
-        <Text>Label</Text>
-        <Text>URL</Text>
-      </div>
+    <div className="grid gap-x-4 gap-y-4 md:gap-x-9 md:grid-cols-2">
       {links?.map((link) => (
         <Row
           key={link.id}
@@ -32,20 +29,18 @@ const LinkList = ({ fallbackData }: Props) => {
               href: { value: string };
               label: { value: string };
             };
-            toasts.promise(
-              Promise.all([
-                update(`/api/links/${link.id}`, {
-                  label: target.label.value,
-                  href: target.href.value,
-                }),
-                mutate(),
-              ])
+            await toasts.promise(
+              update(`/api/links/${link.id}`, {
+                label: target.label.value,
+                href: target.href.value,
+              })
             );
+            await mutate();
           }}
           onDelete={async () => {
-            const res = confirm("Do you want to delete this?");
-            if (res) {
-              Promise.all([_delete(`/api/links/${link.id}`), mutate()]);
+            if (confirm("Do you want to delete this?")) {
+              await toasts.promise(_delete(`/api/links/${link.id}`));
+              await mutate();
             }
           }}
         />
@@ -57,18 +52,16 @@ const LinkList = ({ fallbackData }: Props) => {
             href: { value: string };
             label: { value: string };
           };
-          toasts.promise(
-            Promise.all([
-              create(`/api/links`, {
-                label: target.label.value,
-                href: target.href.value,
-              }),
-              mutate(),
-            ])
+          await toasts.promise(
+            create(`/api/links`, {
+              label: target.label.value,
+              href: target.href.value,
+            })
           );
+          await mutate();
         }}
       />
-    </ul>
+    </div>
   );
 };
 
@@ -81,38 +74,60 @@ interface RowProps {
 const Row = ({ link, onSubmit, onDelete }: RowProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   return (
-    <form
-      ref={formRef}
-      onChange={() => {}}
-      onSubmit={async (e) => {
-        await onSubmit(e);
-        if (!link) {
-          formRef.current?.reset();
-        }
-      }}
-      className="grid gap-4 md:grid-cols-3"
-    >
-      <Input
-        name="label"
-        placeholder="Label"
-        defaultValue={link?.label || ""}
-        required
-      />
-      <Input
-        name="href"
-        placeholder="URL"
-        defaultValue={link?.href || ""}
-        required
-      />
-      <div className="flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
-        <Button type="submit">Submit</Button>
-        {link?.id && (
-          <Button destructive onClick={onDelete}>
-            Delete
+    <div className="p-3 -mx-3 border rounded dark:border-gray-700">
+      <form
+        ref={formRef}
+        onChange={() => {}}
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await onSubmit(e);
+          if (!link) {
+            formRef.current?.reset();
+          }
+        }}
+        className="grid gap-4"
+      >
+        <div>
+          <Label htmlFor="label">Label</Label>
+          <Input
+            id="label"
+            name="label"
+            placeholder="Website"
+            defaultValue={link?.label || ""}
+            className="w-full"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="href">URL</Label>
+          <Input
+            id="href"
+            name="href"
+            placeholder="https://mywebsite.com"
+            defaultValue={link?.href || ""}
+            className="w-full"
+            required
+          />
+        </div>
+        <div className="grid gap-4 col-span-full md:grid-cols-2">
+          <Button type="submit" className="w-full">
+            Submit
           </Button>
-        )}
-      </div>
-    </form>
+          {link?.id && (
+            <Button
+              destructive
+              onClick={(e) => {
+                e.preventDefault(); // otherwise will trigger form submittion
+                onDelete();
+              }}
+              className="w-full"
+            >
+              Delete
+            </Button>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 

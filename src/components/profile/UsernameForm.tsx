@@ -12,7 +12,6 @@ import Text from "../ui/Text";
 const blacklist = ["api", "auth", "404", "profile"];
 
 const UsernameForm = () => {
-  const [disabled, setDisabled] = useState(true);
   const { data: session } = useSession();
   const [value, setValue] = useState(session?.user.username ?? "");
   const { data: user } = useSWR<{ username: string } | undefined>(
@@ -24,16 +23,8 @@ const UsernameForm = () => {
     (user?.username && user.username !== session?.user.username) ||
     blacklist.includes(value);
 
-  useEffect(() => {
-    if (userExists || value === "") {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
-  }, [userExists, value]);
-
   return (
-    <div>
+    <div className="p-3 -mx-3 border rounded dark:border-gray-700">
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -46,36 +37,32 @@ const UsernameForm = () => {
             })
           );
         }}
-        className="grid gap-4 md:grid-cols-3"
+        className="grid h-full gap-4"
       >
-        <div className="">
+        <div>
           <Label htmlFor="slug">Username</Label>
           <Input
             id="slug"
             name="slug"
             placeholder="username"
             value={value}
-            onChange={async (e) => {
-              setDisabled(true);
-              setValue(e.target.value);
-            }}
+            onChange={async (e) => setValue(e.target.value)}
             className="w-full"
             prefix="@"
+            required
           />
+          {userExists ? (
+            <Text className="text-sm italic text-red-500">
+              username is taken
+            </Text>
+          ) : null}
         </div>
         <div className="self-end">
-          <Button
-            type="submit"
-            disabled={disabled}
-            className="w-full md:w-auto"
-          >
+          <Button type="submit" className="w-full">
             Submit
           </Button>
         </div>
       </form>
-      <Text className="h-4 mt-1 text-sm italic text-red-500">
-        {userExists ? "username is taken" : ""}
-      </Text>
     </div>
   );
 };
