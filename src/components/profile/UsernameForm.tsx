@@ -7,11 +7,13 @@ import Input from "../ui/Input";
 import Label from "../ui/Label";
 import toasts from "@/lib/toasts";
 import Text from "../ui/Text";
+import { useRouter } from "next/router";
 
 // avoid username to be:
 const blacklist = ["api", "auth", "404", "profile"];
 
 const UsernameForm = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [value, setValue] = useState(session?.user.username ?? "");
   const { data: user } = useSWR<{ username: string } | undefined>(
@@ -31,11 +33,12 @@ const UsernameForm = () => {
           const target = e.target as typeof e.target & {
             slug: { value: string };
           };
-          toasts.promise(
+          await toasts.promise(
             update(`/api/users/${session.user.id}`, {
               username: target.slug.value,
             })
           );
+          router.reload();
         }}
         className="grid h-full gap-4"
       >
