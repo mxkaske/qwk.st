@@ -10,7 +10,7 @@ import toasts from "@/lib/toasts";
 const SignIn = () => {
   return (
     <Layout className="flex items-center justify-center">
-      <div className="w-full max-w-sm mx-auto space-y-8 divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="w-full max-w-sm mx-auto">
         <Heading className="text-center">Sign in</Heading>
         <Button
           onClick={() => {
@@ -20,6 +20,7 @@ const SignIn = () => {
         >
           Sign in with GitHub
         </Button>
+        <div className="h-px my-8 bg-gray-200 dark:bg-gray-700" />
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -33,7 +34,7 @@ const SignIn = () => {
               })
             );
           }}
-          className="pt-8 space-y-2"
+          className="space-y-2"
         >
           <div>
             <Label htmlFor="email">Email</Label>
