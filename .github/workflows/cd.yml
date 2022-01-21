@@ -1,0 +1,36 @@
+name: CD
+
+# Only trigger, when the ci workflow succeeded
+# The `workflow_run` will only trigger a workflow run if the workflow file is on the default branch
+# See: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_run
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  verel:
+    name: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v2
+
+      - name: checkout setup
+        uses: actions/setup-node@v1
+
+      - name: deploy to vercel
+        run: |
+          prodRun=""
+          if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+            prodRun="--prod"
+          fi
+
+          npx vercel --token ${VERCEL_TOKEN} $prodRun
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

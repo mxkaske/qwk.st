@@ -1,0 +1,28 @@
+name: CI
+
+on: [push]
+jobs:
+  main:
+    name: Typecheck and Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: install deps
+        run: npm ci
+
+      - name: check typescript
+        run: npm run tsc
+
+      - name: check lint
+        run: npm run lint
