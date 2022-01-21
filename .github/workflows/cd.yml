@@ -27,7 +27,7 @@ jobs:
             prodRun="--prod"
           fi
 
-          npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitAuthor=${GITHUB_ACTOR} -m githubDeployment=1 -m githubCommitRef=${GITHUB_REF}
+          npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitAuthor=${GITHUB_ACTOR} -m githubDeployment=1 -m githubCommitRef=${GITHUB_REF/"refs/heads/"/""}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
