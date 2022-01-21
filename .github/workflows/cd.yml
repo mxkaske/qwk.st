@@ -27,14 +27,15 @@ jobs:
             prodRun="--prod"
           fi
 
-          npx vercel --token ${VERCEL_TOKEN} $prodRun\
-          -m githubCommitAuthor=${{ github.actor }}\
-          -m githubDeployment=1\
-          -m githubCommitRef=${{ github.ref_name }}\ 
-          -m githubRepo=${{ github.repository }}\ 
-          -m githubOrg=${{ github.repository_owner }}\
-          -m githubCommitOrg=${{ github.repository_owner }}\
-          -m githubCommitRepo=${{ github.repository }}\
+          npx vercel --token ${VERCEL_TOKEN} $prodRun \
+          -m githubCommitSha=${{ github.sha }} \
+          -m githubCommitAuthor=${{ github.actor }} \
+          -m githubDeployment=1 \
+          -m githubCommitRef=${{ github.ref_name }} \ 
+          -m githubRepo=${{ github.repository }} \ 
+          -m githubOrg=${{ github.repository_owner }} \
+          -m githubCommitOrg=${{ github.repository_owner }} \
+          -m githubCommitRepo=${{ github.repository }} \
           -m githubCommitMessage=${{ github.event.head_commit.message }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
