@@ -1,9 +1,10 @@
 name: CI
 
 on: [push]
+
 jobs:
   main:
-    name: Typecheck and Lint
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
