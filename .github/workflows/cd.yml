@@ -1,8 +1,11 @@
 name: CD
 
+# on: [push]
+# npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=${{ github.sha }} -m githubCommitAuthor=${{ github.actor }} -m githubDeployment=1 -m githubCommitRef=${{ github.ref_name }}  -m githubRepo=${{ github.repository }} -m githubOrg=${{ github.repository_owner }} -m githubCommitOrg=${{ github.repository_owner }} -m githubCommitRepo=${{ github.repository }} -m githubCommitMessage="${{ github.event.head_commit.message }}"
+
 on:
   # push:
-  workflow_dispatch:
+  # workflow_dispatch:
   workflow_run:
     workflows: ["CI"]
     types:
@@ -27,7 +30,7 @@ jobs:
             prodRun="--prod"
           fi
 
-          npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=${{ github.sha }} -m githubCommitAuthor=${{ github.actor }} -m githubDeployment=1 -m githubCommitRef=${{ github.ref_name }}  -m githubRepo=${{ github.repository }} -m githubOrg=${{ github.repository_owner }} -m githubCommitOrg=${{ github.repository_owner }} -m githubCommitRepo=${{ github.repository }} -m githubCommitMessage="${{ github.event.head_commit.message }}"
+          npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=${{ github.event.workflow_run.head_sha }} -m githubCommitAuthor=${{ github.event.workflow_run.head_commit.author.name }} -m githubDeployment=1 -m githubCommitRef=${{ github.event.workflow_run.head_branch }} -m githubRepo=${{ github.event.repository.name }} -m githubOrg=${{ github.event.repository.owner.login }} -m githubCommitOrg=${{ github.event.repository.owner.login }} -m githubCommitRepo=${{ github.event.repository.name }} -m githubCommitMessage="${{ github.event.workflow_run.head_commit.message }}"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
