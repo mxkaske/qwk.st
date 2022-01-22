@@ -28,6 +28,10 @@ jobs:
 
       - name: check lint
         run: npm run lint
+
+      - name: check format
+        run: npm run format
+
   vercel:
     name: deploy
     runs-on: ubuntu-latest
