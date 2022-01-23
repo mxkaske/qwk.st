@@ -72,6 +72,17 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: comment with preview link
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.number }}
+          body: |
+            Good job!
+            Preview link: ${{ env.PREVIEW_LINK }}
+          reactions: rocket
+
     outputs:
       # accessed via the $GITHUB_ENV
       link: ${{ env.PREVIEW_LINK }}
