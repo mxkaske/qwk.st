@@ -65,8 +65,11 @@ jobs:
           repo="${rawRepo/"$org/"/""}"
           message="${{ github.event.head_commit.message }}"
 
-          npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=$sha -m githubCommitAuthor=$author -m githubCommitAuthorLogin=$author -m githubDeployment=1 -m githubCommitRef=$ref -m githubRepo=$repo -m githubOrg=$org -m githubCommitOrg=$org -m githubCommitRepo=$repo -m githubCommitMessage="$message"
+          echo 'PREVIEW_LINK=$(npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=$sha -m githubCommitAuthor=$author -m githubCommitAuthorLogin=$author -m githubDeployment=1 -m githubCommitRef=$ref -m githubRepo=$repo -m githubOrg=$org -m githubCommitOrg=$org -m githubCommitRepo=$repo -m githubCommitMessage="$message")' >> $GITHUB_ENV
         env:
+          # add sha, author,... as env
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      - name: preview link
+        run: "echo ${{ env.PREVIEW_LINK }}"
