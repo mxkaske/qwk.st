@@ -2,6 +2,7 @@ name: labeler
 on: [pull_request]
 
 jobs:
+  timeout-minutes: 1
   label:
     runs-on: ubuntu-latest
     permissions:
