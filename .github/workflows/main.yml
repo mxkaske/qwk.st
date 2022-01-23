@@ -81,7 +81,12 @@ jobs:
     needs: vercel
 
     steps:
-      - name: Audit live URL
-        uses: jakejarvis/lighthouse-action@master
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: Audit URL
+        uses: treosh/lighthouse-ci-action@v8
         with:
-          url: "${{ needs.vercel.outputs.link }}"
+          urls: |
+            ${{ needs.vercel.outputs.link }}
+          uploadArtifacts: true # save results as an action artifacts
