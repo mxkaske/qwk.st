@@ -1,0 +1,19 @@
+# add 'repo' to any root file changes
+repo:
+  - "*"
+
+database:
+  - prisma/**/*
+
+frontend:
+  - src/**/*.tsx
+
+api:
+  - src/pages/api/**/*
+
+styles:
+  - tailwind.config.js
+  - src/styles/*
+
+automatisation:
+  - .github/**/*

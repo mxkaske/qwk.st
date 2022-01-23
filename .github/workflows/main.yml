@@ -1,0 +1,72 @@
+name: CI/CD
+
+on:
+  [push]
+  # the `github.event.head_commit.message` is only valid on push
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+
+jobs:
+  main:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: checkout setup
+        uses: actions/setup-node@v2
+
+      - name: cache deps
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: install deps
+        run: npm ci
+
+      - name: check typescript
+        run: npm run tsc
+
+      - name: check lint
+        run: npm run lint
+
+      - name: check format
+        run: npm run format
+
+  vercel:
+    name: deploy
+    runs-on: ubuntu-latest
+    needs: main
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: checkout setup
+        uses: actions/setup-node@v1
+
+      - name: deploy to vercel
+        run: |
+          prodRun=""
+          if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+            prodRun="--prod"
+          fi
+
+          sha="${{ github.sha }}"
+          author="${{ github.actor }}"
+          ref="${{ github.ref_name }}"
+          org="${{ github.repository_owner }}"
+          rawRepo="${{ github.repository }}"
+          repo="${rawRepo/"$org/"/""}"
+          message="${{ github.event.head_commit.message }}"
+
+          npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=$sha -m githubCommitAuthor=$author -m githubCommitAuthorLogin=$author -m githubDeployment=1 -m githubCommitRef=$ref -m githubRepo=$repo -m githubOrg=$org -m githubCommitOrg=$org -m githubCommitRepo=$repo -m githubCommitMessage="$message"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
