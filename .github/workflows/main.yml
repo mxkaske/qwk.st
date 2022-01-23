@@ -72,6 +72,8 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+    outputs:
+      link: ${{ env.PREVIEW_LINK }}
 
   monitor:
     name: lighthouse
@@ -80,4 +82,4 @@ jobs:
 
     steps:
       - name: preview link
-        run: "echo ${{ env.PREVIEW_LINK }}"
+        run: "echo ${{ needs.vercel.outputs.link }}"
