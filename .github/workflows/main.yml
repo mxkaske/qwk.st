@@ -81,5 +81,7 @@ jobs:
     needs: vercel
 
     steps:
-      - name: preview link
-        run: "echo ${{ needs.vercel.outputs.link }}"
+      - name: Audit live URL
+        uses: jakejarvis/lighthouse-action@master
+        with:
+          url: "${{ needs.vercel.outputs.link }}"
