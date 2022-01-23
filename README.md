@@ -1,5 +1,7 @@
 ## Welcome to main.ly, the Open Source Alternative to Linktr.ee
 
+![main workflow](https://github.com/maximiliankaske/main.ly/actions/workflows/main.yml/badge.svg)
+
 Build with:
 
 - nextjs (react framework)
@@ -11,6 +13,4 @@ Build with:
 
 TODO:
 
-- use react-hot-toast for `toasts.promise` actions
 - use \_middleware for `subdomain` routing?
-- use Button variant (see gist)
