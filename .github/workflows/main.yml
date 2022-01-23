@@ -1,4 +1,4 @@
-name: CI/CD
+name: ci/cd
 
 on:
   [push]
@@ -12,6 +12,7 @@ jobs:
   main:
     name: build
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: checkout code
         uses: actions/checkout@v2
@@ -41,6 +42,7 @@ jobs:
   vercel:
     name: deploy
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: main
 
     steps:
@@ -65,8 +67,46 @@ jobs:
           repo="${rawRepo/"$org/"/""}"
           message="${{ github.event.head_commit.message }}"
 
-          npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=$sha -m githubCommitAuthor=$author -m githubCommitAuthorLogin=$author -m githubDeployment=1 -m githubCommitRef=$ref -m githubRepo=$repo -m githubOrg=$org -m githubCommitOrg=$org -m githubCommitRepo=$repo -m githubCommitMessage="$message"
+          preview=$(npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=$sha -m githubCommitAuthor=$author -m githubCommitAuthorLogin=$author -m githubDeployment=1 -m githubCommitRef=$ref -m githubRepo=$repo -m githubOrg=$org -m githubCommitOrg=$org -m githubCommitRepo=$repo -m githubCommitMessage="$message")
+          echo PREVIEW_LINK=$preview >> $GITHUB_ENV
         env:
+          # add sha, author,... as env
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: find pull_request
+        uses: jwalton/gh-find-current-pr@v1
+        id: findPR
+
+      - name: comment with preview link
+        if: ${{ env.PR != '' }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ env.PR }}
+          body: |
+            Preview link: ${{ env.PREVIEW_LINK }}
+          reactions: rocket
+        env:
+          PR: ${{ steps.findPR.outputs.pr }}
+
+    outputs:
+      # accessed via the $GITHUB_ENV
+      link: ${{ env.PREVIEW_LINK }}
+
+  monitor:
+    name: lighthouse
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: vercel
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: audit URL
+        uses: treosh/lighthouse-ci-action@v8
+        with:
+          urls: |
+            ${{ needs.vercel.outputs.link }}
+          uploadArtifacts: true # save results as an action artifacts
