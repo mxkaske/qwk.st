@@ -1,10 +1,12 @@
 name: CI/CD
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  [push]
+  # the `github.event.head_commit.message` is only valid on push
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
 
 jobs:
   main:
@@ -62,8 +64,6 @@ jobs:
           rawRepo="${{ github.repository }}"
           repo="${rawRepo/"$org/"/""}"
           message="${{ github.event.head_commit.message }}"
-
-          echo ${{ github.event }}
 
           npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=$sha -m githubCommitAuthor=$author -m githubCommitAuthorLogin=$author -m githubDeployment=1 -m githubCommitRef=$ref -m githubRepo=$repo -m githubOrg=$org -m githubCommitOrg=$org -m githubCommitRepo=$repo -m githubCommitMessage="$message"
         env:
