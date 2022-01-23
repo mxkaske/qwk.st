@@ -73,6 +73,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
     outputs:
+      # accessed via the $GITHUB_ENV
       link: ${{ env.PREVIEW_LINK }}
 
   monitor:
@@ -84,7 +85,7 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
-      - name: Audit URL
+      - name: audit URL
         uses: treosh/lighthouse-ci-action@v8
         with:
           urls: |
