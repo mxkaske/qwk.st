@@ -78,7 +78,7 @@ jobs:
         id: findPR
 
       - name: comment with preview link
-        if: ${{ env.PR != "" }}
+        if: ${{ env.PR != '' }}
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ env.PR }}
