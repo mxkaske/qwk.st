@@ -54,11 +54,11 @@ jobs:
 
       - name: deploy to vercel
         id: deploy-vercel
-        uses: amondnet/vercel-action@v20
+        uses: andyrichardson/vercel-action@v21
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
-          vercel-args: "${{ github.ref == 'refs/heads/main' && '--prod' || '' }} -m gitCommitRef=${{ github.ref_name.replace(/^refs\/head\//, '') }}"
+          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
 
