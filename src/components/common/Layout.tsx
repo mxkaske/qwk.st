@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import Link from "../ui/Link";
 import SelectTheme from "./SelectTheme";
 import cn from "classnames";
+import Badge from "../ui/Badge";
 
 interface Props {
   className?: string;
@@ -17,6 +18,7 @@ const Layout: FC<Props> = ({ children, className }) => {
           <Link href="/" className="hover:decoration-indigo-500">
             qwk.st
           </Link>
+          <Badge className="ml-2 text-xs">now with subdomain</Badge>
         </div>
         <div className="space-x-4">
           {session?.user ? (
