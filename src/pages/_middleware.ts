@@ -30,6 +30,12 @@ export default function middleware(req: NextRequest) {
     return new Response(null, { status: 404 });
   }
 
+  if (pathname.startsWith("/sites")) {
+    // rewrite to the current hostname under the pages/sites folder
+    // the main logic component will happen in pages/sites/[site]/index.tsx
+    return NextResponse.rewrite(`/_sites/${currentHost}`);
+  }
+
   if (
     !pathname.includes(".") && // exclude all files in the public folder
     !pathname.startsWith("/api") // exclude all API routes
