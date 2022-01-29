@@ -53,46 +53,17 @@ jobs:
         uses: actions/setup-node@v1
 
       - name: deploy to vercel
-        run: |
-          prodRun=""
-          if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
-            prodRun="--prod"
-          fi
-
-          sha="${{ github.sha }}"
-          author="${{ github.actor }}"
-          ref="${{ github.ref_name }}"
-          org="${{ github.repository_owner }}"
-          rawRepo="${{ github.repository }}"
-          repo="${rawRepo/"$org/"/""}"
-          message="${{ github.event.head_commit.message }}"
-
-          preview=$(npx vercel --token ${VERCEL_TOKEN} $prodRun -m githubCommitSha=$sha -m githubCommitAuthor=$author -m githubCommitAuthorLogin=$author -m githubDeployment=1 -m githubCommitRef=$ref -m githubRepo=$repo -m githubOrg=$org -m githubCommitOrg=$org -m githubCommitRepo=$repo -m githubCommitMessage="$message")
-          echo PREVIEW_LINK=$preview >> $GITHUB_ENV
-        env:
-          # add sha, author,... as env
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-
-      - name: find pull_request
-        uses: jwalton/gh-find-current-pr@v1
-        id: findPR
-
-      - name: comment with preview link
-        if: ${{ env.PR != '' }}
-        uses: peter-evans/create-or-update-comment@v1
+        id: deploy-vercel
+        uses: amondnet/vercel-action@v20
         with:
-          issue-number: ${{ env.PR }}
-          body: |
-            Preview link: ${{ env.PREVIEW_LINK }}
-          reactions: rocket
-        env:
-          PR: ${{ steps.findPR.outputs.pr }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
+          vercel-args: ${{ github.ref == 'refs/heads/master' && '--prod' || '' }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
 
     outputs:
-      # accessed via the $GITHUB_ENV
-      link: ${{ env.PREVIEW_LINK }}
+      link: ${{ steps.deploy-vercel.outputs.preview-url }}
 
   monitor:
     name: lighthouse
