@@ -53,6 +53,7 @@ jobs:
         uses: actions/setup-node@v1
 
       - name: deploy to vercel
+        id: deploy-vercel
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
@@ -75,5 +76,5 @@ jobs:
         uses: treosh/lighthouse-ci-action@v8
         with:
           urls: |
-            ${{ needs.vercel.outputs.preview-url }}
+            ${{ steps.deploy-vercel.outputs.preview-url }}
           uploadArtifacts: true # save results as an action artifacts
