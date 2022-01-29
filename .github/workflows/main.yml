@@ -54,7 +54,7 @@ jobs:
 
       - name: deploy to vercel
         id: deploy-vercel
-        uses: andyrichardson/vercel-action@v21
+        uses: andyrichardson/vercel-action@v21 # See ISSUE comment: https://github.com/amondnet/vercel-action/issues/78#issuecomment-940843410
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
