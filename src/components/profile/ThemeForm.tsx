@@ -12,7 +12,7 @@ import Text from "../ui/Text";
 
 const URL =
   process.env.NODE_ENV === "production"
-    ? "https://main-ly.vercel.app"
+    ? "https://qwk.st"
     : "http://localhost:3000";
 
 const ThemeForm = () => {

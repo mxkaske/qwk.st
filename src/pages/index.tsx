@@ -4,7 +4,7 @@ import Heading from "@/components/ui/Heading";
 
 const URL =
   process.env.NODE_ENV === "production"
-    ? "https://main-ly.vercel.app"
+    ? "https://qwk.st"
     : "http://localhost:3000";
 
 export default function Home() {
@@ -13,11 +13,11 @@ export default function Home() {
       <div className="space-y-6">
         <Heading as="h1" className="max-w-3xl text-center">
           <span className="underline decoration-indigo-500 decoration-4 md:decoration-[6px]">
-            Main.ly
+            Qwk.st
           </span>
           , the{" "}
           <a
-            href="https://github.com/maximiliankaske/main.ly"
+            href="https://github.com/maximiliankaske/qwk.st"
             target="_blank"
             rel="noreferrer"
             className="underline decoration-4 md:decoration-[6px] focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded"

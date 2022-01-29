@@ -1,6 +1,6 @@
-## Welcome to main.ly, the Open Source Alternative to Linktr.ee
+## Welcome to qwk.st, the Open Source Alternative to Linktr.ee
 
-![main workflow](https://github.com/maximiliankaske/main.ly/actions/workflows/main.yml/badge.svg)
+![main workflow](https://github.com/maximiliankaske/qwk.st/actions/workflows/main.yml/badge.svg)
 
 Build with:
 

@@ -15,7 +15,7 @@ const Layout: FC<Props> = ({ children, className }) => {
       <header className="flex items-center justify-between">
         <div>
           <Link href="/" className="hover:decoration-indigo-500">
-            main.ly
+            qwk.st
           </Link>
         </div>
         <div className="space-x-4">
@@ -32,7 +32,7 @@ const Layout: FC<Props> = ({ children, className }) => {
       </header>
       <main className={cn("flex-1", className)}>{children}</main>
       <footer className="space-x-4 text-right">
-        <Link href="https://github.com/maximiliankaske/main.ly">GitHub</Link>
+        <Link href="https://github.com/maximiliankaske/qwk.st">GitHub</Link>
         <Link href="https://twitter.com/mxkaske">Twitter</Link>
       </footer>
     </div>
