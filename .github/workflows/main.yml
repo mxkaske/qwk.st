@@ -62,6 +62,9 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
 
+    outputs:
+      link: ${{ steps.deploy-vercel.outputs.preview-url }}
+
   monitor:
     name: lighthouse
     runs-on: ubuntu-latest
@@ -76,5 +79,5 @@ jobs:
         uses: treosh/lighthouse-ci-action@v8
         with:
           urls: |
-            ${{ steps.deploy-vercel.outputs.preview-url }}
+            ${{ needs.vercel.outputs.link }}
           uploadArtifacts: true # save results as an action artifacts
