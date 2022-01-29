@@ -31,7 +31,7 @@ export default function Home() {
         </Heading>
         <Heading as="h4" className="max-w-sm mx-auto text-center">
           Curious about how it looks? Check out{" "}
-          <Link href={`${URL}/mxkaske`} className="italic">
+          <Link href={`${URL}/_sites/mxkaske`} className="italic">
             @mxkaske
           </Link>
           .

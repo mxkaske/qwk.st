@@ -3,23 +3,23 @@ import { NextRequest, NextResponse } from "next/server";
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   // Get hostname (e.g. vercel.com, test.vercel.app, etc.)
+  // The full domain with subdomain
   const hostname = req.headers.get("host");
-  // If localhost, assign the host value manually
-  // If prod, get the custom domain/subdomain value by removing the root URL
-  // (in the case of "test.vercel.app", "vercel.app" is the root URL)
 
-  const url =
+  // The full domain without subdomain
+  const domain =
     process.env.VERCEL_ENV === "production" ? "qwk.st" : "staging.qwk.st";
 
+  // Either the full domain without subdomain or only the subdomain
   const currentHost =
     process.env.NODE_ENV == "production"
-      ? hostname?.replace(`.${url}`, "")
+      ? hostname?.replace(`.${domain}`, "")
       : process.env.CURR_HOST;
 
-  console.log({ url, currentHost, hostname, pathname });
+  console.log({ domain, currentHost, hostname, pathname });
 
   // Prevent running if-statements if currentHost is invalid.
-  if (!currentHost || currentHost === "" || currentHost === url) {
+  if (!currentHost || currentHost === "" || currentHost === domain) {
     return NextResponse.next();
   }
 
@@ -29,16 +29,6 @@ export default function middleware(req: NextRequest) {
   if (pathname.startsWith(`/_sites`)) {
     return new Response(null, { status: 404 });
   }
-
-  if (pathname.startsWith("/sites")) {
-    // rewrite to the current hostname under the pages/sites folder
-    // the main logic component will happen in pages/sites/[site]/index.tsx
-    return NextResponse.rewrite(`/_sites/${currentHost}`);
-  }
-
-  /**
-   * EXAMPLE
-   */
 
   if (
     !pathname.includes(".") && // exclude all files in the public folder
