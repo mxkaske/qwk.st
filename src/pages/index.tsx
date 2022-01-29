@@ -27,7 +27,7 @@ export default function Home() {
         </Heading>
         <Text className="max-w-sm mx-auto font-medium text-center">
           Curious about how it looks? Check out{" "}
-          <Link href="/mxkaske" className="italic font-normal">
+          <Link href="https://qwk.st/mxkaske" className="italic font-normal">
             qwk.st/mxkaske
           </Link>{" "}
           or{" "}
