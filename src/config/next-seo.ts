@@ -1,18 +1,18 @@
 import { DefaultSeoProps } from "next-seo";
 
 const SEO: DefaultSeoProps = {
-  title: "Main.ly",
+  title: "qwk.st",
   description: "The Open Source Alternative to Linktr.ee",
   openGraph: {
     type: "website",
-    url: "https://main.ly",
-    site_name: "main.ly",
+    url: "https://qwk.st",
+    site_name: "qwk.st",
     images: [
       {
         url: "/assets/default-meta.png",
         width: 1200,
         height: 600,
-        alt: "main.ly",
+        alt: "qwk.st",
       },
     ],
   },

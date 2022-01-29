@@ -15,8 +15,8 @@ const Slug = ({
   return (
     <div className="container flex flex-col min-h-screen p-4 mx-auto">
       <NextSeo
-        title={`@${user.username} | Main.ly`}
-        description={"Main.ly. Make your link do more."}
+        title={`@${user.username} | qwk.st`}
+        description={"qwk.st - make your link do more."}
       />
       <header className="self-end">
         <SelectTheme />
