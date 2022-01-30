@@ -8,7 +8,12 @@ export default function middleware(req: NextRequest) {
 
   // The full domain without subdomain
   const domain =
-    process.env.VERCEL_ENV === "production" ? "qwk.st" : "staging.qwk.st";
+    process.env.VERCEL_ENV === "production"
+      ? "qwk.st"
+      : hostname.includes(".verce.app")
+      ? hostname
+      : "staging.qwk.st";
+  // AVOID VERCEL SUBDOMAIN git-sha.vercel.app in "preview"
 
   // Either the full domain without subdomain or only the subdomain
   const currentHost =
