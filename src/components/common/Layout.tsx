@@ -34,7 +34,7 @@ const Layout: FC<Props> = ({ children, className }) => {
       </header>
       <main className={cn("flex-1", className)}>{children}</main>
       <footer className="space-x-4 text-right">
-        <Link href="https://github.com/maximiliankaske/qwk.st">GitHub</Link>
+        <Link href="https://github.com/mxkaske/qwk.st">GitHub</Link>
         <Link href="https://twitter.com/mxkaske">Twitter</Link>
       </footer>
     </div>
