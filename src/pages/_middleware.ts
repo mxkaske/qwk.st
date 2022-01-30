@@ -8,12 +8,12 @@ export default function middleware(req: NextRequest) {
 
   // The full domain without subdomain
   let domain = "";
-  if (process.env.VERCEL_ENV === "production") {
-    domain = "qwk.st";
-    // avoid vercel sudomain url git-sha.vercel.app in "preview"
-  } else if (hostname.includes(".vercel.app")) {
+  // avoid vercel sudomain url .vercel.app in "preview" and "production"
+  if (hostname.includes(".vercel.app")) {
     domain = hostname;
-  } else {
+  } else if (process.env.VERCEL_ENV === "production") {
+    domain = "qwk.st";
+  } else if (process.env.VERCEL_ENV === "preview") {
     domain = "staging.qwk.st";
   }
 
