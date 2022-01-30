@@ -10,7 +10,7 @@ export default function middleware(req: NextRequest) {
   const domain =
     process.env.VERCEL_ENV === "production"
       ? "qwk.st"
-      : hostname.includes(".verce.app")
+      : hostname.includes(".vercel.app")
       ? hostname
       : "staging.qwk.st";
   // AVOID VERCEL SUBDOMAIN git-sha.vercel.app in "preview"
