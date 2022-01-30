@@ -65,19 +65,19 @@ jobs:
     outputs:
       link: ${{ steps.deploy-vercel.outputs.preview-url }}
 
-  monitor:
-    name: lighthouse
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    needs: vercel
+  # monitor:
+  #   name: lighthouse
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 5
+  #   needs: vercel
 
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: checkout code
+  #       uses: actions/checkout@v2
 
-      - name: audit URL
-        uses: treosh/lighthouse-ci-action@v8
-        with:
-          urls: |
-            ${{ needs.vercel.outputs.link }}
-          uploadArtifacts: true # save results as an action artifacts
+  #     - name: audit URL
+  #       uses: treosh/lighthouse-ci-action@v8
+  #       with:
+  #         urls: |
+  #           ${{ needs.vercel.outputs.link }}
+  #         uploadArtifacts: true # save results as an action artifacts

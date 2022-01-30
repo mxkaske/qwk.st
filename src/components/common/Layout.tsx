@@ -18,7 +18,7 @@ const Layout: FC<Props> = ({ children, className }) => {
           <Link href="/" className="hover:decoration-indigo-500">
             qwk.st
           </Link>
-          <Badge className="ml-2 text-xs">now with subdomain</Badge>
+          <Badge className="ml-2 text-xs">with subdomain</Badge>
         </div>
         <div className="space-x-4">
           {session?.user ? (

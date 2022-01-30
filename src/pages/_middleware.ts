@@ -20,6 +20,7 @@ export default function middleware(req: NextRequest) {
 
   // Prevent running if-statements if currentHost is invalid.
   if (!currentHost || currentHost === "" || currentHost === domain) {
+    console.log("no subdomain");
     return NextResponse.next();
   }
 
@@ -27,6 +28,7 @@ export default function middleware(req: NextRequest) {
   // the pages/sites folder and its respective contents. This can also be done
   // via rewrites to a custom 404 page
   if (pathname.startsWith(`/_sites`)) {
+    console.log("pathname starts with `/_sites`");
     return new Response(null, { status: 404 });
   }
 
@@ -36,6 +38,7 @@ export default function middleware(req: NextRequest) {
   ) {
     // rewrite to the current hostname under the pages/sites folder
     // the main logic component will happen in pages/sites/[site]/index.tsx
+    console.log("with subdomain and valid pathname");
     return NextResponse.rewrite(`/_sites/${currentHost}${pathname}`);
   }
 }
